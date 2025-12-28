@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/booking")
+//@RequestMapping("/booking")
 public class BookingInventoryController {
 
     private final InventoryService inventoryService;

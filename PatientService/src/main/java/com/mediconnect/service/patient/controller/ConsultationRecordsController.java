@@ -15,8 +15,11 @@ public class ConsultationRecordsController {
     private final PatientConsultationRecordService recordsService;
 
     @GetMapping("/patientHistory/{patientId}")
-    @PreAuthorize("hasAuthority('PATIENT', 'DOCTOR')")
+//    @PreAuthorize("hasAnyRole('PATIENT', 'DOCTOR')") --> does not work
+//    @PreAuthorize("hasRole('PATIENT')")
+    @PreAuthorize("hasAnyAuthority('ROLE_PATIENT','ROLE_DOCTOR')")
     public List<PatientConsultationRecordDto> patientHistory(@PathVariable Long patientId){
+        // TODO: patient 101 should not be able to access pateint 103 data
         return recordsService.findPatientHistory(patientId);
     }
 
