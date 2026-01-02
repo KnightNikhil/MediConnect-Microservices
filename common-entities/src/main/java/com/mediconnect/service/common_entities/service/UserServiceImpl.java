@@ -7,6 +7,7 @@ import com.mediconnect.service.common_entities.entity.Doctor;
 import com.mediconnect.service.common_entities.entity.Enums.Role;
 import com.mediconnect.service.common_entities.entity.Patient;
 import com.mediconnect.service.common_entities.entity.UserEntity;
+import com.mediconnect.service.common_entities.exception.InvalidCredentialsException;
 import com.mediconnect.service.common_entities.repository.DiagnosisCentreRepository;
 import com.mediconnect.service.common_entities.repository.DoctorRepository;
 import com.mediconnect.service.common_entities.repository.PatientRepository;
@@ -64,7 +65,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     id, password));
         } catch (AuthenticationException e) {
-            throw new RuntimeException(e);
+            throw new InvalidCredentialsException();
         }
         return jwtService.createJWTToken(id, role);
 
