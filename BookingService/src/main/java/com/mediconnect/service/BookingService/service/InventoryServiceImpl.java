@@ -25,6 +25,8 @@ public class InventoryServiceImpl implements InventoryService {
     
     private final ModelMapper modelMapper;
 
+    private final BookingEventProducer bookingEventProducer;
+
     @Override
     public void bookDoctorAppointment(AppointmentDetailsDto appointmentDetailsDto) {
         BookingInventory bookingInventory = bookingRepository.findByDoctorIdAndDateAndTime(appointmentDetailsDto.getDoctorId(), appointmentDetailsDto.getDate(), appointmentDetailsDto.getTime());
@@ -33,7 +35,7 @@ public class InventoryServiceImpl implements InventoryService {
             bookingInventory.setPatientId(bookingInventory.getPatientId());
             bookingRepository.save(bookingInventory);
         }
-
+        bookingEventProducer.publishBookingCreatedEvent(bookingInventory);
     }
 
     @Override

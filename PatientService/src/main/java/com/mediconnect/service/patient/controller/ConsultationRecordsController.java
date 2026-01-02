@@ -4,6 +4,7 @@ import com.mediconnect.service.common_entities.dto.PatientConsultationRecordDto;
 import com.mediconnect.service.patient.service.PatientConsultationRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +20,8 @@ public class ConsultationRecordsController {
 //    @PreAuthorize("hasRole('PATIENT')")
     @PreAuthorize("hasAnyAuthority('ROLE_PATIENT','ROLE_DOCTOR')")
     public List<PatientConsultationRecordDto> patientHistory(@PathVariable Long patientId){
-        // TODO: patient 101 should not be able to access pateint 103 data
+        // TODO: patient 101 should not be able to access patient 103 data
+
         return recordsService.findPatientHistory(patientId);
     }
 
