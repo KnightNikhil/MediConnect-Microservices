@@ -1,6 +1,7 @@
 package com.mediconnect.service.BookingService.service;
 
 import com.mediconnect.service.BookingService.repository.BookingRepository;
+import com.mediconnect.service.common_entities.aop.ExecutionTime;
 import com.mediconnect.service.common_entities.dto.AppointmentDetailsDto;
 import com.mediconnect.service.common_entities.dto.BookingInventoryRequestDto;
 import com.mediconnect.service.common_entities.entity.BookingInventory;
@@ -22,12 +23,11 @@ import java.util.List;
 public class InventoryServiceImpl implements InventoryService {
 
     private final BookingRepository bookingRepository;
-    
-    private final ModelMapper modelMapper;
 
     private final BookingEventProducer bookingEventProducer;
 
     @Override
+    @ExecutionTime
     public void bookDoctorAppointment(AppointmentDetailsDto appointmentDetailsDto) {
         BookingInventory bookingInventory = bookingRepository.findByDoctorIdAndDateAndTime(appointmentDetailsDto.getDoctorId(), appointmentDetailsDto.getDate(), appointmentDetailsDto.getTime());
         if(bookingInventory.getBookingStatus().equals(BookingStatus.AVAILABLE)){
