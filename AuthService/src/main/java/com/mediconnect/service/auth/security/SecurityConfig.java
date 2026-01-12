@@ -1,4 +1,4 @@
-package com.mediconnect.service.common_entities.security;
+package com.mediconnect.service.auth.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -22,12 +22,37 @@ public class SecurityConfig {
 
     private final JWTFilter jwtFilter;
 
+    /*
+        Request
+            ↓
+        JwtAuthenticationFilter   ← STILL RUNS ❌
+            ↓
+        SecurityContextHolder
+            ↓
+        Authorization (permitAll)
+            ↓
+        Controller
+     */
+
     @Bean
     public SecurityFilterChain webSecurityConfiguration(HttpSecurity httpSecurity) throws Exception {
+
+        /*
+            •	Inside SecurityFilterChain
+            •	After all filters have already run
+            •	Only controls authorization, not filtering
+
+        Meaning
+            •	The request is allowed
+            •	BUT filters still execute
+            •	Your JWT filter still runs
+            •	Your JWT filter may reject the request
+         */
         httpSecurity.authorizeHttpRequests(
                 request -> {
                     request.requestMatchers("/register/**").permitAll().
                             requestMatchers("/login/**").permitAll().
+                            requestMatchers("/refreshToken/**").permitAll().
                             anyRequest().permitAll();
 
                 })
@@ -37,6 +62,8 @@ public class SecurityConfig {
 
         return httpSecurity.build();
     }
+
+
 
     @Bean
     public PasswordEncoder passwordEncoder(){

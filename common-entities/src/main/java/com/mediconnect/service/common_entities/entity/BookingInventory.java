@@ -19,9 +19,11 @@ public class BookingInventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn( name = "doctor_id", nullable = false)
-    private Long doctorId;
+    @ManyToOne // Many bookings -> One Doctor(foreign key here)
+    @JoinColumn( name = "doctor_id", nullable = false) // name in BookingInventory schema -> has nothing to do with Patient schema, that relationship is already established in @ManyToOne
+    // though it tells the current schema that doctor_id can not be null, so there must exist a doctor for this booking
+    // Use @JoinColumn on the owning side of a relationship. since Doctor is foreign key here, bookings is the owning side
+    private Doctor doctor;
 
 //    private Long diagnosisCentreId;
 
@@ -34,9 +36,10 @@ public class BookingInventory {
     @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;
 
-//    @ManyToOne
-//    @JoinColumn(name = "booked_for_patient_id")
-    private Long patientId;
+    @ManyToOne // Many bookings -> One patient(foreign key here)
+    @JoinColumn(name = "patient_id", nullable = false) // name in BookingInventory schema -> has nothing to do with patient schema, that relationship is already established in @ManyToOne
+    // though it tells the current schema that booked_for_patient_id can not be null, so there must exist a doctor for this booking
+    private Patient patientId;
 
 
 }

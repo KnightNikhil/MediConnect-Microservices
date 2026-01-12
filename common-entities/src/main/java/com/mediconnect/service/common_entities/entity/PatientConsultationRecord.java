@@ -3,6 +3,7 @@ package com.mediconnect.service.common_entities.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import javax.print.Doc;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,15 +25,15 @@ public class PatientConsultationRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "patient_id", nullable = false)
-    // this name is for PatientHistory table , not referencing patient table, by default it takes id only
+    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false)
+    // this name is for PatientHistory table , not referencing patient table, by default it takes primary key of patient table only
     // referencedColumnName is used for any other unique  field of the other entity eg referencedColumnName = "email"
-    private Long patientId;
+    private Patient patient;
 
-//    @ManyToOne
-//    @JoinColumn(name = "doctor_id", nullable = false)
-    private Long doctorId;
+    @ManyToOne
+    @JoinColumn(name = "doctor_id", nullable = false)
+    private Doctor doctor;
 
     @Column(nullable = false)
     private LocalDateTime consultancyDateTime;

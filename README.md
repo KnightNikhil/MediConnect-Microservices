@@ -133,27 +133,27 @@ Based on my complete review of your MediConnect-Microservices codebase, here's a
 
 ### 1. **Advanced Security Implementation**
 - **JWT Authentication & Authorization**
-    - Implement JWT tokens instead of basic authentication
-    - Add refresh token mechanism with expiration
+    - Implement JWT tokens instead of basic authentication - DONE
+    - Add refresh token mechanism with expiration - DONE
     - Role-based access control (RBAC) with multiple roles
-    - Method-level security with @PreAuthorize/@PostAuthorize
+    - Method-level security with @PreAuthorize/@PostAuthorize - DONE
 
 - **File**: `common-entities/security/JwtTokenProvider.java`
 - **Key Concepts**: Spring Security filters, token validation, CORS handling
 
 ### 2. **Centralized Error Handling & Exception Management**
 - **Global Exception Handler**
-    - @RestControllerAdvice for centralized exception handling
-    - Custom exception classes (BusinessException, ValidationException, etc.)
-    - Standardized error response format with timestamps and error codes
-    - Proper HTTP status code mapping
+    - @RestControllerAdvice for centralized exception handling - DONE
+    - Custom exception classes (BusinessException, ValidationException, etc.) - DONE
+    - Standardized error response format with timestamps and error codes - DONE
+    - Proper HTTP status code mapping 
 
 - **File**: `common-entities/exception/GlobalExceptionHandler.java`
 - **Interview Value**: Shows understanding of cross-cutting concerns
 
 ### 3. **Comprehensive Logging & Monitoring**
 - **Implementation**:
-    - SLF4J + Logback for structured logging
+    - SLF4J + Logback for structured logging - 
     - Log levels (DEBUG, INFO, WARN, ERROR) used correctly
     - Log correlation IDs (MDC) for distributed tracing
     - Actuator endpoints for application health monitoring
@@ -353,7 +353,7 @@ src/test/java/
 ## **IMMEDIATE ACTION PLAN** (Priority Order)
 
 ### **Week 1-2: Security & Error Handling**
-1. Implement JWT authentication in AuthService
+1. Implement JWT authentication in AuthService -- done
 2. Add Global Exception Handler with custom exceptions
 3. Implement role-based authorization
 
@@ -421,3 +421,71 @@ You can now discuss:
 - "Created CI/CD pipeline with automated testing and quality gates"
 
 This roadmap positions you as a **senior Java backend engineer** with production-ready system design knowledge!
+
+
+
+
+----------
+
+FOR RESUME
+
+MediConnect – Healthcare Microservices Platform
+
+Spring Boot | Java 21 | Kafka | Microservices  | Spring Boot
+•	Designed and developed a production-grade healthcare platform using Spring Boot microservices architecture, enabling scalable and loosely coupled services for authentication, booking, payments, diagnosis, doctors, and patients.
+•	Implemented API Gateway (Spring Cloud Gateway) with Netflix Eureka service discovery, providing centralized routing, load balancing, and seamless inter-service communication.
+•	Built secure authentication and authorization using JWT-based security, including:
+    •	Access and refresh tokens with expiration handling
+    •	Role-based access control (RBAC)
+    •	Method-level security using @PreAuthorize and @PostAuthorize
+    •	Centralized security logic via a shared common-entities module
+•	Designed and implemented event-driven architecture using Apache Kafka, enabling:
+    •	Asynchronous booking and notification workflows
+    •	Decoupled communication between Booking, Patient, and Notification services
+    •	Kafka consumer groups, partitioning strategies, and idempotent consumers
+    •	Dead Letter Queue (DLQ) handling for failed message processing
+•	Integrated a payment gateway into the booking workflow with:
+    •	Secure transaction initiation and verification
+    •	Event-based booking confirmation after successful payment
+    •	Failure handling and compensation logic to ensure data consistency
+•	Implemented centralized exception handling using @RestControllerAdvice with:
+    •	Custom business and validation exceptions
+    •	Standardized error response format with timestamps and error codes
+    •	Proper HTTP status mapping for REST APIs
+•	Added comprehensive logging and monitoring:
+    •	Structured logging with SLF4J + Logback
+    •	MDC-based correlation IDs for tracing requests across microservices
+    •	Health and metrics monitoring using Spring Boot Actuator
+•	Ensured data integrity and transactional consistency by:
+    •	Using @Transactional with appropriate isolation levels
+    •	Implementing optimistic and pessimistic locking strategies
+    •	Applying database constraints and indexing for performance optimization
+•	Implemented resilience patterns using Resilience4j:
+    •	Circuit breakers, retries with exponential backoff, and timeouts
+    •	Fallback mechanisms for downstream service failures
+•	Improved system performance using caching strategies:
+    •	Redis-based distributed caching
+    •	@Cacheable, @CacheEvict, and TTL-based cache invalidation
+    •	Cached frequently accessed data like doctor availability
+•	Designed audit logging and compliance features:
+    •	JPA auditing for entity lifecycle tracking
+    •	Audit trails for sensitive operations (logins, bookings, payments)
+    •	Secure handling and encryption of sensitive data
+•	Containerized infrastructure using Docker and Docker Compose, including:
+    •	Kafka and ZooKeeper setup
+    •	Environment parity between local and production environments
+•	Followed database-per-service pattern with PostgreSQL, and implemented Flyway-based database migrations for version control and schema consistency.
+
+
+MediConnect – Healthcare Microservices Platform
+
+Spring Boot | Java 21 | Kafka | Microservices | Spring Security | Spring Data JPA | Spring AOP
+•	Architected a Spring Boot microservices platform using Java 21, Spring Data JPA, and database-per-service design for scalable healthcare workflows.
+•	Implemented Spring Cloud Gateway API Gateway with Netflix Eureka service discovery for centralized routing, load balancing, and service-to-service communication.
+•	Designed event-driven architecture using Apache Kafka, enabling asynchronous booking, payment, and notification processing with consumer groups and DLQ handling.
+•	Secured microservices using Spring Security with JWT authentication, refresh tokens, RBAC, and method-level authorization via @PreAuthorize.
+•	Integrated payment gateway into booking flow with transactional consistency, failure handling, and Kafka-based post-payment event processing.
+•	Implemented centralized exception handling and cross-cutting concerns using @RestControllerAdvice and Spring AOP for logging, validation, and error management.
+•	Added production-grade observability with SLF4J, Logback, MDC correlation IDs, and Spring Boot Actuator for monitoring and tracing.
+•	Optimized performance using Redis caching, transactional isolation, optimistic/pessimistic locking, and Resilience4j circuit breaker and retry patterns.
+•	Containerized services and infrastructure using Docker and Docker Compose, including Kafka, ZooKeeper, and PostgreSQL, ensuring environment consistency.

@@ -1,6 +1,7 @@
-package com.mediconnect.service.common_entities.service;
+package com.mediconnect.service.auth.service;
 
 
+import com.mediconnect.service.common_entities.dto.LoginResponseDto;
 import com.mediconnect.service.common_entities.dto.UserDto;
 import com.mediconnect.service.common_entities.entity.DiagnosisCentre;
 import com.mediconnect.service.common_entities.entity.Doctor;
@@ -11,7 +12,7 @@ import com.mediconnect.service.common_entities.exception.InvalidCredentialsExcep
 import com.mediconnect.service.common_entities.repository.DiagnosisCentreRepository;
 import com.mediconnect.service.common_entities.repository.DoctorRepository;
 import com.mediconnect.service.common_entities.repository.PatientRepository;
-import com.mediconnect.service.common_entities.security.JWTService;
+import com.mediconnect.service.auth.security.JWTService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Lazy;
 import org.modelmapper.ModelMapper;
@@ -40,6 +41,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
+    // TODO: circular dependency
     public UserServiceImpl(PatientRepository patientRepository, DoctorRepository doctorRepository,
                            DiagnosisCentreRepository diagnosisCentreRepository, ModelMapper modelMapper, JWTService jwtService,
                            @Lazy AuthenticationManager authenticationManager, @Lazy PasswordEncoder passwordEncoder) { // ???
@@ -53,7 +55,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public String loginUser(String role, HttpServletRequest request) {
+    public LoginResponseDto loginUser(String role, HttpServletRequest request) {
         String encodedToken = request.getHeader("Authorization").split("Basic ")[1];
         byte[] decodedToken = Base64.getDecoder().decode(encodedToken);
         String credentials = new String(decodedToken, StandardCharsets.UTF_8);
@@ -67,7 +69,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         } catch (AuthenticationException e) {
             throw new InvalidCredentialsException();
         }
-        return jwtService.createJWTToken(id, role);
+        return jwtService.createJWTAccessToken(id, role);
 
     }
 
@@ -94,6 +96,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             default -> throw new IllegalStateException("Unexpected value: " + user.getRole());
         };
     }
+
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
