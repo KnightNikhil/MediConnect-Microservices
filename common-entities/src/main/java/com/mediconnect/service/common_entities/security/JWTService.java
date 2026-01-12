@@ -1,6 +1,6 @@
-package com.mediconnect.service.auth.security;
+package com.mediconnect.service.common_entities.security;
 
-import com.mediconnect.service.auth.service.AuthService;
+import com.mediconnect.service.common_entities.service.AuthService;
 import com.mediconnect.service.common_entities.dto.LoginResponseDto;
 import com.mediconnect.service.common_entities.dto.UserDto;
 import com.mediconnect.service.common_entities.entity.*;

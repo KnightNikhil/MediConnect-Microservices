@@ -1,4 +1,4 @@
-package com.mediconnect.service.auth.repository;
+package com.mediconnect.service.common_entities.repository;
 
 import com.mediconnect.service.common_entities.entity.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;

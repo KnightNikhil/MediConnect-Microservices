@@ -1,4 +1,4 @@
-package com.mediconnect.service.auth.service;
+package com.mediconnect.service.common_entities.service;
 
 
 import com.mediconnect.service.common_entities.dto.LoginResponseDto;
@@ -12,7 +12,7 @@ import com.mediconnect.service.common_entities.exception.InvalidCredentialsExcep
 import com.mediconnect.service.common_entities.repository.DiagnosisCentreRepository;
 import com.mediconnect.service.common_entities.repository.DoctorRepository;
 import com.mediconnect.service.common_entities.repository.PatientRepository;
-import com.mediconnect.service.auth.security.JWTService;
+import com.mediconnect.service.common_entities.security.JWTService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Lazy;
 import org.modelmapper.ModelMapper;

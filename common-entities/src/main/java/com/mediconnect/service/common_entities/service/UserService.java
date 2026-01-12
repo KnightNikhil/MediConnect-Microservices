@@ -1,4 +1,4 @@
-package com.mediconnect.service.auth.service;
+package com.mediconnect.service.common_entities.service;
 
 import com.mediconnect.service.common_entities.dto.LoginResponseDto;
 import com.mediconnect.service.common_entities.dto.UserDto;

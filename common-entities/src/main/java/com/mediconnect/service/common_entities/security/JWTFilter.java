@@ -1,7 +1,7 @@
-package com.mediconnect.service.auth.security;
+package com.mediconnect.service.common_entities.security;
 
 import com.mediconnect.service.common_entities.entity.UserEntity;
-import com.mediconnect.service.auth.service.UserService;
+import com.mediconnect.service.common_entities.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -53,7 +53,8 @@ public class JWTFilter extends OncePerRequestFilter {
         return path.startsWith("/login")
                 || path.startsWith("/register")
                 || path.startsWith("/refreshToken")
-                || path.startsWith("/actuator");
+                || path.startsWith("/actuator")
+                ;
     }
     /*
     NEED OF THIS??

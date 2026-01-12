@@ -1,20 +1,15 @@
-package com.mediconnect.service.auth.service;
+package com.mediconnect.service.common_entities.service;
 
-import com.mediconnect.service.auth.repository.RefreshTokenRepository;
-import com.mediconnect.service.auth.security.JWTService;
-import com.mediconnect.service.common_entities.dto.LoginResponseDto;
-import com.mediconnect.service.common_entities.entity.Patient;
+import com.mediconnect.service.common_entities.repository.RefreshTokenRepository;
 import com.mediconnect.service.common_entities.entity.RefreshToken;
 import com.mediconnect.service.common_entities.entity.UserEntity;
 import com.mediconnect.service.common_entities.repository.DiagnosisCentreRepository;
 import com.mediconnect.service.common_entities.repository.DoctorRepository;
 import com.mediconnect.service.common_entities.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service

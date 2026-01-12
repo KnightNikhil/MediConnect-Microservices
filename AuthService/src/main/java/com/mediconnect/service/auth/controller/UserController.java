@@ -1,7 +1,7 @@
 package com.mediconnect.service.auth.controller;
 
-import com.mediconnect.service.auth.security.JWTService;
-import com.mediconnect.service.auth.service.UserService;
+import com.mediconnect.service.common_entities.security.JWTService;
+import com.mediconnect.service.common_entities.service.UserService;
 import com.mediconnect.service.common_entities.dto.LoginResponseDto;
 import com.mediconnect.service.common_entities.dto.UserDto;
 import jakarta.servlet.http.Cookie;

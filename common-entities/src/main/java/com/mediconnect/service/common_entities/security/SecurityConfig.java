@@ -1,4 +1,4 @@
-package com.mediconnect.service.auth.security;
+package com.mediconnect.service.common_entities.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
