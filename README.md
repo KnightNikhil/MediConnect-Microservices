@@ -135,7 +135,7 @@ Based on my complete review of your MediConnect-Microservices codebase, here's a
 - **JWT Authentication & Authorization**
     - Implement JWT tokens instead of basic authentication - DONE
     - Add refresh token mechanism with expiration - DONE
-    - Role-based access control (RBAC) with multiple roles
+    - Role-based access control (RBAC) with multiple roles 
     - Method-level security with @PreAuthorize/@PostAuthorize - DONE
 
 - **File**: `common-entities/security/JwtTokenProvider.java`

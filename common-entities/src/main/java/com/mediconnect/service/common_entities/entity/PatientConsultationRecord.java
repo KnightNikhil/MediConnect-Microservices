@@ -25,13 +25,13 @@ public class PatientConsultationRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
     // this name is for PatientHistory table , not referencing patient table, by default it takes primary key of patient table only
     // referencedColumnName is used for any other unique  field of the other entity eg referencedColumnName = "email"
     private Patient patient;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
 

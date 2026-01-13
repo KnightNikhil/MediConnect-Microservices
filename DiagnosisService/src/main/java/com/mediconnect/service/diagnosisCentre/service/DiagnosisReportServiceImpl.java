@@ -5,6 +5,7 @@ import com.mediconnect.service.diagnosisCentre.entity.DiagnosisReport;
 import com.mediconnect.service.diagnosisCentre.repository.DiagnosisReportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,10 +13,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class DiagnosisReportServiceImpl implements DiagnosisReportService {
 
     private final DiagnosisReportRepository diagnosisReportRepository;
 
+    @Override
     public void addDiagnosisReports(DiagnosisReportDto diagnosisReportDto) {
         DiagnosisReport report = DiagnosisReport.builder()
                 .patientConsultationRecordId(diagnosisReportDto.getPatientConsultationRecordId())
@@ -27,6 +30,7 @@ public class DiagnosisReportServiceImpl implements DiagnosisReportService {
         diagnosisReportRepository.save(report);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<DiagnosisReportDto> findDiagnosisReports(Long recordId) {
         List<DiagnosisReport> allDiagnosisReportsByRecordId = diagnosisReportRepository.findAllByPatientConsultationRecordId(recordId);

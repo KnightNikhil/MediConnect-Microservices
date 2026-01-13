@@ -25,6 +25,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -74,6 +75,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public Object createNewUser(String role, UserDto user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         UserEntity userEntity =
@@ -88,6 +90,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserEntity getUser(UserEntity user) {
         return switch (user.getRole()){
             case PATIENT -> patientRepository.findById(user.getId()).orElseThrow(() -> new RuntimeException("User not found"));
@@ -100,6 +103,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Long id = Long.valueOf(username);
 

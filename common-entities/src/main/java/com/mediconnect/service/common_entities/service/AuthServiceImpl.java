@@ -9,6 +9,7 @@ import com.mediconnect.service.common_entities.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -29,12 +30,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public RefreshToken getRefreshTokenData(String token) {
         return refreshTokenRepository.findByRefreshToken(token).orElseThrow(() -> new RuntimeException("Refresh token not found"));
 
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserEntity getUserById(Long id) throws UsernameNotFoundException {
         Optional<? extends UserEntity> user =
                 doctorRepository.findById(id)
