@@ -1,12 +1,11 @@
 package com.mediconnect.service.diagnosisCentre.service;
 
-import com.mediconnect.service.common_entities.dto.DiagnosisReportDto;
-
-import java.util.List;
+import com.mediconnect.service.common_entities.dto.DiagnosisReportRequestDto;
+import org.springframework.data.domain.Page;
 
 public interface DiagnosisReportService {
 
-    public void addDiagnosisReports(DiagnosisReportDto diagnosisReportDto);
+    public void addDiagnosisReports(DiagnosisReportRequestDto diagnosisReportRequestDto);
 
-    List<DiagnosisReportDto> findDiagnosisReports(Long recordId);
+    Page<DiagnosisReportRequestDto> findDiagnosisReports(Long recordId, int pageNumber, int pageSize);
 }

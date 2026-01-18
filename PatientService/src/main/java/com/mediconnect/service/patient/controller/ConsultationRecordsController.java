@@ -1,9 +1,11 @@
 package com.mediconnect.service.patient.controller;
 
 import com.mediconnect.service.common_entities.dto.PatientConsultationRecordDto;
+import com.mediconnect.service.common_entities.entity.PatientConsultationRecord;
 import com.mediconnect.service.patient.service.PatientConsultationRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -28,4 +30,8 @@ public class ConsultationRecordsController {
         return recordsService.findPatientHistory(patientId, page, size);
     }
 
+    @GetMapping("/patientHistory/{recordId}/exists")
+    public ResponseEntity<Boolean> validatedPatientConsultationRecord(@PathVariable Long recordId) {
+        return ResponseEntity.ok(recordsService.validatePatientConsultationRecord(recordId));
+    }
 }

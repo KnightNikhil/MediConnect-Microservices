@@ -1,10 +1,9 @@
 package com.mediconnect.service.patient.service;
 
-import com.mediconnect.service.common_entities.dto.DiagnosisReportDto;
 import com.mediconnect.service.common_entities.dto.PatientConsultationRecordDto;
 import com.mediconnect.service.common_entities.entity.PatientConsultationRecord;
 import com.mediconnect.service.common_entities.exception.DBException;
-import com.mediconnect.service.common_entities.exception.DataUnavailable;
+import com.mediconnect.service.common_entities.exception.InvalidCredentialsException;
 import com.mediconnect.service.patient.repository.PatientConsultationRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -13,11 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +46,11 @@ public class PatientConsultationRecordServiceImpl implements PatientConsultation
         //            consultationRecordList.add(modelMapper.map(recordByPatientId, PatientConsultationRecordDto.class));
         //    }
         return patientConsultationRecordDtoPage;
+    }
+
+    @Override
+    public Boolean validatePatientConsultationRecord(Long recordId) {
+        return patientConsultationRepository.existsById(recordId);
     }
 
 

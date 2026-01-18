@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: patient
+    name: patient-service
   datasource:
     url: jdbc:postgresql://localhost:5432/mediconnect
     username: nikhilladdha

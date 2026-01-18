@@ -1,8 +1,6 @@
-package com.mediconnect.service.diagnosisCentre.entity;
+package com.mediconnect.service.common_entities.entity;
 
 
-import com.mediconnect.service.common_entities.entity.DiagnosisCentre;
-import com.mediconnect.service.common_entities.entity.PatientConsultationRecord;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,12 +19,9 @@ public class DiagnosisReport {
     private Integer id;
 
     // ??? circular dependency warning
-//    @ManyToOne(fetch = FetchType.LAZY) // Many DiagnosisReport rows can have same(one) patientConsultationRecordId
-//    @JoinColumn(name = "patient_consultation_record_id", nullable = false)
-//    private PatientConsultationRecord patientConsultationRecord;
-
-    @Column(name = "patient_consultation_record_id", nullable = false)
-    private Long patientConsultationRecordId;
+    @ManyToOne(fetch = FetchType.LAZY) // Many DiagnosisReport rows can have same(one) patientConsultationRecordId
+    @JoinColumn(name = "patient_consultation_record_id", nullable = false)
+    private PatientConsultationRecord patientConsultationRecord;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "diagnosis_centre_id", nullable = false)

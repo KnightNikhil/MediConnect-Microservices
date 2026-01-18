@@ -51,8 +51,8 @@ public class PatientConsultationRecord {
     private String clinicalDiagnosis;
 
 //    TODO ??
-//    @OneToMany(mappedBy = "patientConsultationRecord", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Long> diagnosisReportsId;
+    @OneToMany(mappedBy = "patientConsultationRecord", fetch = FetchType.LAZY) // One Record -> many DiagnosisReport
+    private List<DiagnosisReport> diagnosisReports;
 
 //    @Embedded
     @ElementCollection

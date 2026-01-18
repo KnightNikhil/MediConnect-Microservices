@@ -11,4 +11,12 @@ public class InvalidCredentialsException extends BaseException {
                 "INVALID_CREDENTIALS"
         );
     }
+
+    public InvalidCredentialsException(String message, HttpStatus httpStatus) {
+        super(
+                message,
+                httpStatus,
+                "INVALID DATA PROVIDED"
+        );
+    }
 }
