@@ -31,7 +31,7 @@ public class ConsultationRecordsController {
     }
 
     @GetMapping("/patientHistory/{recordId}/exists")
-    public ResponseEntity<Boolean> validatedPatientConsultationRecord(@PathVariable Long recordId) {
+    public ResponseEntity<PatientConsultationRecord> validatedPatientConsultationRecord(@PathVariable Long recordId) {
         return ResponseEntity.ok(recordsService.validatePatientConsultationRecord(recordId));
     }
 }

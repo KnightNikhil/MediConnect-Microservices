@@ -35,22 +35,23 @@ public class PatientConsultationRecordServiceImpl implements PatientConsultation
             throw new DBException("Could not fetch Patient Consultation Record for Patient Id: " + patientId + " from DB");
         }
 
-        Page<PatientConsultationRecordDto> patientConsultationRecordDtoPage = records.map( record ->
-                modelMapper.map(record, PatientConsultationRecordDto.class)
-
-        );
-
         // ==> below code loses pageable metadata
         //        List<PatientConsultationRecordDto> consultationRecordList = new ArrayList<>();
         //        for (PatientConsultationRecord recordByPatientId : allRecordsByPatientId) {
         //            consultationRecordList.add(modelMapper.map(recordByPatientId, PatientConsultationRecordDto.class));
         //    }
-        return patientConsultationRecordDtoPage;
+        return records.map(record ->
+                modelMapper.map(record, PatientConsultationRecordDto.class)
+
+        );
     }
 
     @Override
-    public Boolean validatePatientConsultationRecord(Long recordId) {
-        return patientConsultationRepository.existsById(recordId);
+    public PatientConsultationRecord validatePatientConsultationRecord(Long recordId) {
+        if(patientConsultationRepository.existsById(recordId))
+            return patientConsultationRepository.getReferenceById(recordId);
+        else
+            throw new InvalidCredentialsException("Patient Consultation Record does not exist with record id " + recordId, HttpStatus.NOT_ACCEPTABLE);
     }
 
 

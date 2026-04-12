@@ -2,8 +2,10 @@ package com.mediconnect.service.diagnosisCentre.service;
 
 import com.mediconnect.service.common_entities.dto.DiagnosisReportRequestDto;
 import com.mediconnect.service.common_entities.entity.DiagnosisCentre;
+import com.mediconnect.service.common_entities.entity.DiagnosisReport;
+import com.mediconnect.service.common_entities.entity.PatientConsultationRecord;
+import com.mediconnect.service.common_entities.exception.DBException;
 import com.mediconnect.service.common_entities.exception.InvalidCredentialsException;
-import com.mediconnect.service.diagnosisCentre.entity.DiagnosisReport;
 import com.mediconnect.service.diagnosisCentre.repository.DiagnosisReportRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -33,21 +35,25 @@ public class DiagnosisReportServiceImpl implements DiagnosisReportService {
 
         DiagnosisCentre user = (DiagnosisCentre) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        boolean patientConsultationRecordExists = patientHistoryClient.validatePatientConsultationRecord(diagnosisReportRequestDto.getPatientConsultationRecordId());
+        PatientConsultationRecord patientConsultationRecord = null;
 
-        if(!patientConsultationRecordExists)
-            throw new InvalidCredentialsException("Patient Consultation Record does not exist with record id " +
-                    diagnosisReportRequestDto.getPatientConsultationRecordId(), HttpStatus.NOT_ACCEPTABLE);
-
-
+        try {
+            patientConsultationRecord = patientHistoryClient.validatePatientConsultationRecord(diagnosisReportRequestDto.getPatientConsultationRecordId());
+        }catch (DBException e){
+            throw new InvalidCredentialsException("Patient Consultation Record does not exist with record id " + diagnosisReportRequestDto.getPatientConsultationRecordId(), HttpStatus.NOT_ACCEPTABLE);
+        }
         DiagnosisReport report = DiagnosisReport.builder()
-                .patientConsultationRecordId(diagnosisReportRequestDto.getPatientConsultationRecordId())
+                .patientConsultationRecord(patientConsultationRecord)
                 .diagnosisCentre(user)
                 .dateTime(LocalDateTime.now())
                 .documentName(diagnosisReportRequestDto.getDocumentName())
                 .documentUrlS3("diagnosisReportDto.getDocumentUrlS3()") // from S3 upload // ???
                 .build();
-        diagnosisReportRepository.save(report);
+        try {
+            diagnosisReportRepository.save(report);
+        } catch (Exception e) {
+            throw new DBException("Could not save Diagnosis Report to DB");
+        }
 
     }
 
@@ -60,15 +66,15 @@ public class DiagnosisReportServiceImpl implements DiagnosisReportService {
 
         //        List<DiagnosisReportRequestDto> diagnosisReportRequestDtoList = new ArrayList<>();
 
-//        for(DiagnosisReport report : allDiagnosisReportsByRecordId){
-//            diagnosisReportRequestDtoList.add(DiagnosisReportRequestDto.builder()
-//                    .patientConsultationRecordId(recordId)
-//                    .diagnosisCentre(report.getDiagnosisCentreId())
-//                    .dateTime(report.getDateTime())
-//                    .documentUrlS3(report.getDocumentUrlS3())
-//                    .documentName(report.getDocumentName())
-//                    .build());
-//        }
+        //        for(DiagnosisReport report : allDiagnosisReportsByRecordId){
+        //            diagnosisReportRequestDtoList.add(DiagnosisReportRequestDto.builder()
+        //                    .patientConsultationRecordId(recordId)
+        //                    .diagnosisCentre(report.getDiagnosisCentreId())
+        //                    .dateTime(report.getDateTime())
+        //                    .documentUrlS3(report.getDocumentUrlS3())
+        //                    .documentName(report.getDocumentName())
+        //                    .build());
+        //        }
 
     return allDiagnosisReportsByRecordId.map(
             report -> modelMapper.map(report, DiagnosisReportRequestDto.class));
